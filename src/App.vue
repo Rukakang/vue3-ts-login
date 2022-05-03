@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 export default {
   name: 'App',
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 </style>
+
 
