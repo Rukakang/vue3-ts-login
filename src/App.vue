@@ -1,13 +1,9 @@
 <template>
-  <div class="App_Container">
-    
-  </div>
+  <router-view></router-view>
 </template>
 
 <script lang="ts" setup>
-export default {
-  name: 'App',
-}
+
 </script>
 
 <style lang="less" scoped>
