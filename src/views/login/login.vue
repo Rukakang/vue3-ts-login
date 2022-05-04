@@ -14,15 +14,15 @@
             <el-input v-model="ruleForm.pwd" type="password" autocomplete="off" />
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="loginFn(ruleFormRef)">登录</el-button>
-            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+            <el-button type="primary" @click="loginFn()">登录</el-button>
+            <el-button @click="resetForm()">重置</el-button>
         </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref,toRefs,toRef } from 'vue'
+import { reactive,ref,toRefs } from 'vue';
 import type { FormInstance } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
@@ -48,26 +48,24 @@ const state = reactive({
 })
 const {ruleForm} = toRefs(state);
 
+
 const rules = reactive({
   userName: [{ validator: validateUser, trigger: 'blur' }],
   pwd: [{ validator: validatePwd, trigger: 'blur' }],
 })
 
-const loginFn = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log('submit!')
-    } else {
-      console.log('error submit!')
-      return false
-    }
+const loginFn = () => {
+  ruleFormRef.value?.validate().then(()=>{
+    console.log("teh");
+  }).catch(()=>{
+    console.log("catch");
+    
   })
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
+const resetForm = () => {
+  if(!ruleFormRef.value) return
+  ruleFormRef.value.resetFields()
 }
 </script>
 
