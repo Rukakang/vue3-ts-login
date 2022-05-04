@@ -22,29 +22,31 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref,toRefs,toRef } from 'vue'
 import type { FormInstance } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
-const validateUser = (rule: any, value: any, callback: any) => {
-  if (value === '') {
+const validateUser = (rule: unknown, value: string | undefined, callback: (msg?:Error)=>void) => {
+  if (!value) {
     callback(new Error('请输入用户名'))
   } else {
     callback()
   }
 }
-const validatePwd = (rule: any, value: any, callback: any) => {
+const validatePwd = (rule: unknown, value: string | undefined, callback: (msg?:Error)=>void) => {
   if (value === '') {
     callback(new Error('请输入密码'))
   }else {
     callback()
   }
 }
-
-const ruleForm = reactive({
-  userName: '',
-  pwd: '',
+const state = reactive({
+    ruleForm:{
+        userName: '',
+        pwd: '',
+    }
 })
+const {ruleForm} = toRefs(state);
 
 const rules = reactive({
   userName: [{ validator: validateUser, trigger: 'blur' }],
