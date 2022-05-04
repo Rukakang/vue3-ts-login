@@ -24,6 +24,7 @@
 <script lang="ts" setup>
 import { reactive,ref,toRefs } from 'vue';
 import type { FormInstance } from 'element-plus'
+import {UserService} from '../../api/api'
 
 const ruleFormRef = ref<FormInstance>()
 const validateUser = (rule: unknown, value: string | undefined, callback: (msg?:Error)=>void) => {
@@ -56,9 +57,15 @@ const rules = reactive({
 
 const loginFn = () => {
   ruleFormRef.value?.validate().then(()=>{
-    console.log("teh");
+    console.log("验证成功");
+    UserService.adminLoginApi({
+      username:ruleForm.value.userName,
+      password:ruleForm.value.pwd
+    }).then(res=>{
+      console.log(res)
+    })
   }).catch(()=>{
-    console.log("catch");
+    console.log("验证失败");
     
   })
 }
